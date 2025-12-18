@@ -1,0 +1,363 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  /* фон страницы */
+  background-image: url("images/lavka.png"); 
+  background-size: cover;        /* чтобы картинка растягивалась на весь экран */
+  background-position: center;   /* центрируем */
+  background-repeat: no-repeat;  /* без повторов */
+  
+  color: #f5f5ff;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Вся сцена */
+
+.page-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  height: 80vh;
+  max-height: 600px;
+}
+
+/* Центр — котёл */
+
+.kotel-block { /* позиция котла */
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -55%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.kotel {
+  width: 500px;
+  height: 500px;
+  background-image: url("images/kotel.png"); 
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50%;
+}
+
+
+.kotel-hover {
+  outline: 3px dashed #68faff00;
+  outline-offset: 6px;
+}
+
+.status-text {
+  font-size: 14px;
+  text-align: center;
+  max-width: 320px;
+  color: #dde6ff;
+}
+
+
+/* Ингредиенты */
+
+.ingridients-block {
+  position: absolute;
+  inset: 0;
+  pointer-events: none; /* чтобы слой не перекрывал котёл */
+}
+
+.ingridient-item {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50%;
+  cursor: grab;
+  pointer-events: auto; 
+  transition:
+    transform 0.15s ease,
+    opacity 0.2s ease;
+}
+
+/* Когда тащим — поднимаем над всем */
+.ingridient-item.dragging {
+  position: fixed;
+  z-index: 9999;
+  cursor: grabbing;
+}
+
+/* Ховер-анимация чуть увеличиваем */
+.ingridient-item:hover {
+  transform: scale(1.06);
+}
+
+/* Подпись под ингредиентом */
+.ingridient-item::after {
+  content: attr(data-label);
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, 4px);
+  font-size: 24px;  
+  color: #f5f5ff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease;
+}
+
+.ingridient-item:hover::after {
+  opacity: 1;
+  transform: translate(-50%, 8px);
+}
+
+/* Картинки для каждого ингредиента */
+
+.ingridient-rose {
+  background-image: url("images/rose.png");
+}
+
+.ingridient-troll {
+  background-image: url("images/troll.png");
+}
+
+.ingridient-scale {
+  background-image: url("images/scale.png");
+}
+
+.ingridient-goblin {
+  background-image: url("images/goblin.png");
+}
+
+/* Раскладка вокруг котла */
+
+.ingridient-rose {
+  bottom: 6%;
+  left: 60%;
+  transform: translateX(-50%);
+}
+
+.ingridient-troll {
+  bottom: 6%;
+  left: 8%;
+}
+
+.ingridient-scale {
+  bottom: 6%;
+  right: 8%;
+}
+
+.ingridient-goblin {
+  bottom: 6%;
+  left: 40%;
+  transform: translateX(-50%);
+}
+
+
+.ingridient-rose:hover {
+  transform: translateX(-50%) scale(1.06);
+}
+
+.ingridient-goblin:hover {
+  transform: translateX(-50%) scale(1.06);
+}
+
+/* Фикс дёргания для центра при клике */
+
+.ingridient-rose:active {
+  transform: translateX(-50%) scale(0.97);
+}
+
+.ingridient-goblin:active {
+  transform: translateX(-50%) scale(0.97);
+}
+
+
+/* Использованный ингредиент */
+
+.ingridient-item.used {
+  opacity: 0.35;
+  cursor: default;
+}
+
+
+/* Оверлей результата */
+
+.potion-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 66, 138, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.potion-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.potion-card {
+  background: #8396d3;
+  border-radius: 16px;
+  padding: 20px 22px 18px;
+  max-width: 360px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.85);
+  border: 1px solid rgba(180, 210, 255, 0.3);
+}
+
+.potion-bottle {
+  width: 300px;                
+  height: 220px;
+  margin: 0 auto 12px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  border-radius: 0;          
+  position: relative;
+}
+
+.potion-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.potion-key {
+  font-size: 12px;
+  opacity: 0.7;
+  margin-bottom: 10px;
+}
+
+.potion-description {
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+
+.potion-button {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #3e7bb4, #1c4591);
+  color: #041019;
+}
+
+.potion-button:hover {
+  filter: brightness(1.05);
+}
+
+/* ===== АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ ===== */
+@media (max-width: 600px) {
+  body {
+    align-items: stretch;
+    justify-content: stretch;
+  }
+
+  .page-wrapper {
+    max-width: 100%;
+    height: 100vh;
+  }
+
+  .kotel-block {
+    top: 60%;
+    transform: translate(-50%, -60%);
+  }
+
+  .kotel {
+    width: 260px;
+    height: 260px;
+  }
+
+  .status-text {
+    font-size: 13px;
+    max-width: 260px;
+  }
+
+  .ingridient-item {
+    width: 72px;
+    height: 72px;
+  }
+
+  /* Подписи ингредиентов — показываем всегда на телефоне */
+  .ingridient-item::after {
+    opacity: 1;
+    transform: translate(-50%, 6px);
+    font-size: 14px;
+  }
+
+  /* Позиции ингредиентов в одну линию снизу */
+  .ingridient-rose {
+    bottom: 10%;
+    left: 70%;
+    top: auto;
+    right: auto;
+    transform: translateX(-50%);
+  }
+
+  .ingridient-goblin {
+    bottom: 10%;
+    left: 30%;
+    top: auto;
+    right: auto;
+    transform: translateX(-50%);
+  }
+
+  .ingridient-troll {
+    bottom: 10%;
+    left: 5%;
+    top: auto;
+    right: auto;
+  }
+
+  .ingridient-scale {
+    bottom: 10%;
+    right: 5%;
+    top: auto;
+    left: auto;
+  }
+
+  /* Оверлей */
+  .potion-card {
+    max-width: 320px;
+    padding: 16px 16px 14px;
+  }
+
+  .potion-title {
+    font-size: 16px;
+  }
+
+  .potion-description {
+    font-size: 16px; /* было 13 — ставь сколько хочешь */
+  }
+
+  .potion-bottle {
+    width: min(240px, 80vw);
+    height: min(180px, 45vw);
+    margin: 0 auto 8px;
+  }
+}

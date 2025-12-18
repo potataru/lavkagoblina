@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Котёл и ингредиенты</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="page-wrapper">
+    <!-- Блок с котлом и подписью -->
+    <div class="kotel-block">
+      <div class="kotel" id="kotelDrop"></div>
+      <div class="status-text" id="statusText">
+        Брось в котёл три ингредиента, чтобы сварить зелье.
+      </div>
+    </div>
+
+    <!-- Блок с ингредиентами -->
+    <div class="ingridients-block">
+      <!-- Магическая роза -->
+      <div
+        class="ingridient-item ingridient-rose"
+        draggable="true"
+        data-id="rose"
+        data-label="Магическая роза"
+        aria-label="Магическая роза"
+      ></div>
+
+      <!-- Слеза мини-тролля -->
+      <div
+        class="ingridient-item ingridient-troll"
+        draggable="true"
+        data-id="troll"
+        data-label="Слеза мини-тролля"
+        aria-label="Слеза мини-тролля"
+      ></div>
+
+      <!-- Чешуйка карликовой топеройки -->
+      <div
+        class="ingridient-item ingridient-scale"
+        draggable="true"
+        data-id="scale"
+        data-label="Чешуйка карликовой топеройки"
+        aria-label="Чешуйка карликовой топеройки"
+      ></div>
+
+      <!-- Гоблинское варево -->
+      <div
+        class="ingridient-item ingridient-goblin"
+        draggable="true"
+        data-id="goblin"
+        data-label="Гоблинское варево"
+        aria-label="Гоблинское варево"
+      ></div>
+    </div>
+  </div>
+
+  <!-- 🧪 Оверлей с результатом зелья — ВЕРНУЛИ ОБРАТНО -->
+  <div class="potion-overlay" id="potionOverlay">
+    <div class="potion-card">
+      <div class="potion-bottle"></div>
+      <div class="potion-title" id="potionName">Название зелья</div>
+      <div class="potion-key" id="potionKey"></div>
+      <div class="potion-description" id="potionDescription">
+        Описание зелья.
+      </div>
+      <button class="potion-button" id="brewAgainBtn">Сварить ещё</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
