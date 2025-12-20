@@ -5,7 +5,7 @@
 }
 
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+font-family: "Caveat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   /* фон страницы */
   background-image: url("images/lavka.png"); 
   background-size: cover;        /* чтобы картинка растягивалась на весь экран */
@@ -361,3 +361,4 @@ body {
     margin: 0 auto 8px;
   }
 }
+
