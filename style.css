@@ -323,14 +323,14 @@ font-family: "Caveat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
 
   .ingridient-troll {
     bottom: 10%;
-    left: 5%;
+    left: 4%;
     top: auto;
     right: auto;
   }
 
   .ingridient-scale {
     bottom: 10%;
-    right: 5%;
+    right: 10%;
     top: auto;
     left: auto;
   }
@@ -358,6 +358,7 @@ font-family: "Caveat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
   display: none;
 }
 }
+
 
 
 
