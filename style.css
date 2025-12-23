@@ -315,7 +315,7 @@ font-family: "Caveat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
 
   .ingridient-goblin {
     bottom: 10%;
-    left: 15%;
+    left: 35%;
     top: auto;
     right: auto;
     transform: translateX(-50%);
@@ -358,6 +358,7 @@ font-family: "Caveat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
   display: none;
 }
 }
+
 
 
 
